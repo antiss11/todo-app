@@ -27,22 +27,31 @@ class TodoList extends React.Component {
       lastID: 0,
     };
     this.addTaskHandler = this.addTaskHandler.bind(this);
-    this.handleInput = this.handleInput.bind(this);
-    this.editHandle = this.editHandle.bind(this);
+    this.handleTaskInput = this.handleTaskInput.bind(this);
+    this.handleTaskEdit = this.handleTaskEdit.bind(this);
   }
 
-  handleInput(e) {
+  handleTaskInput(e) {
     this.setState((prevState) => {
       return {
         taskList: prevState.taskList,
         input: this.inputRef.current.value,
+        lastID: prevState.lastID,
       };
     });
   }
 
-  editHandle(e) {
-    let parent = e.target.parentNode;
-    const id = parent.dataset.id;
+  handleTaskEdit(e) {
+    this.setState((prevState) => {
+      const id = e.target.id;
+      const taskList = prevState.taskList;
+      taskList[id] = e.target.value;
+      return {
+        taskList: taskList,
+        input: this.inputRef.current.value,
+        lastID: prevState.lastID,
+      };
+    });
   }
 
   addTaskHandler(e) {
@@ -66,16 +75,12 @@ class TodoList extends React.Component {
         <input
           type="text"
           value={this.state.input}
-          onChange={this.handleInput}
+          onChange={this.handleTaskInput}
           ref={this.inputRef}
         />
         <AddButton onClick={this.addTaskHandler} />
         <br />
-        <TaskList
-          tasks={this.state.taskList}
-          onChange={this.handleInput}
-          editHandle={this.editHandle}
-        />
+        <TaskList tasks={this.state.taskList} onChange={this.handleTaskEdit} />
       </div>
     );
   }
