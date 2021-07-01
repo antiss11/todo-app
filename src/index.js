@@ -26,7 +26,7 @@ class TodoList extends React.Component {
       input: "",
       lastID: 0,
     };
-    this.addTaskHandler = this.addTaskHandler.bind(this);
+    this.handleTaskAdding = this.handleTaskAdding.bind(this);
     this.handleTaskInput = this.handleTaskInput.bind(this);
     this.handleTaskEdit = this.handleTaskEdit.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
@@ -70,7 +70,7 @@ class TodoList extends React.Component {
     });
   }
 
-  addTaskHandler(e) {
+  handleTaskAdding(e) {
     this.setState((prevState) => {
       let lastID = prevState.lastID;
       const taskText = prevState.input;
@@ -94,7 +94,7 @@ class TodoList extends React.Component {
           onChange={this.handleTaskInput}
           ref={this.inputRef}
         />
-        <AddButton onClick={this.addTaskHandler} />
+        <AddButton onClick={this.handleTaskAdding} />
         <br />
         <TaskList
           tasks={this.state.taskList}
