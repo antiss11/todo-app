@@ -33,7 +33,7 @@ function TaskItem(props) {
         readOnly={!isEdit}
       />
       <button onClick={onClick}>{isEdit ? "Save" : "Edit"}</button>
-      <button>Delete</button>
+      <button onClick={props.handleRemove}>Delete</button>
     </div>
   );
 }

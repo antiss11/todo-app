@@ -7,7 +7,6 @@ class TaskList extends React.Component {
     let tasksItems = tasksEntries.map((taskData) => {
       const id = taskData[0];
       const text = taskData[1];
-      const isEditable = taskData[2];
       return (
         <TaskItem
           key={id}
@@ -15,7 +14,7 @@ class TaskList extends React.Component {
           onChange={this.props.onChange}
           text={text}
           editHandle={this.props.editHandle}
-          isEditable={this.props.isEditable}
+          handleRemove={this.props.handleRemove}
         />
       );
     });
