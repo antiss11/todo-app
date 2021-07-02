@@ -17,6 +17,18 @@ const styles = {
   padding: "10px 0",
 };
 
+function getID(taskList) {
+  const IDs = Object.keys(taskList);
+  if (IDs.length === 0 || !IDs.includes("0")) return 0;
+  let freeID = IDs.find((v, i, a) => {
+    const next = +a[i + 1];
+    if (next - 1 !== +v) {
+      return true;
+    }
+  });
+  return ++freeID;
+}
+
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
@@ -49,10 +61,11 @@ class TodoList extends React.Component {
     this.setState((prevState) => {
       const taskList = prevState.taskList;
       delete taskList[id];
+      const nextID = getID(this.state.taskList);
       return {
         taskList: taskList,
         input: this.inputRef.current.value,
-        lastID: prevState.lastID,
+        lastID: nextID,
       };
     });
   }
@@ -72,7 +85,7 @@ class TodoList extends React.Component {
 
   handleTaskAdding(e) {
     this.setState((prevState) => {
-      let lastID = prevState.lastID;
+      let lastID = getID(this.state.taskList);
       const taskText = prevState.input;
       if (!taskText) return;
       const newTaskList = { ...prevState.taskList };
@@ -80,7 +93,7 @@ class TodoList extends React.Component {
       return {
         taskList: newTaskList,
         input: "",
-        lastID: ++lastID,
+        lastID: lastID,
       };
     });
   }
