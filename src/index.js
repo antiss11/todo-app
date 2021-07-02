@@ -85,8 +85,13 @@ class TodoList extends React.Component {
       const lastID = getID(this.state.taskList);
       const taskText = this.state.input;
       if (!taskText) return;
+      const now = new Date();
+      const taskData = {
+        text: taskText,
+        added: now,
+      };
       const newTaskList = { ...prevState.taskList };
-      newTaskList[lastID] = taskText;
+      newTaskList[lastID] = taskData;
       return {
         taskList: newTaskList,
         input: "",
