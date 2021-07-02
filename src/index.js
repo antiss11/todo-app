@@ -36,7 +36,6 @@ class TodoList extends React.Component {
     this.state = {
       taskList: {},
       input: "",
-      lastID: 0,
     };
     this.handleTaskAdding = this.handleTaskAdding.bind(this);
     this.handleTaskInput = this.handleTaskInput.bind(this);
@@ -49,7 +48,6 @@ class TodoList extends React.Component {
       return {
         taskList: prevState.taskList,
         input: this.inputRef.current.value,
-        lastID: prevState.lastID,
       };
     });
   }
@@ -78,7 +76,6 @@ class TodoList extends React.Component {
       return {
         taskList: taskList,
         input: this.inputRef.current.value,
-        lastID: prevState.lastID,
       };
     });
   }
@@ -93,7 +90,6 @@ class TodoList extends React.Component {
       return {
         taskList: newTaskList,
         input: "",
-        lastID: lastID,
       };
     });
   }
