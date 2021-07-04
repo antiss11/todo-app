@@ -16,8 +16,9 @@ const styles = {
 function TaskItem(props) {
   const [isEdit, toggleEdit] = useState(false);
 
-  function onClick(e) {
+  function onEditClick(e) {
     toggleEdit(isEdit ? false : true);
+    props.onChange(e);
   }
 
   return (
@@ -32,7 +33,7 @@ function TaskItem(props) {
         className="task-text"
         readOnly={!isEdit}
       />
-      <button onClick={onClick}>{isEdit ? "Save" : "Edit"}</button>
+      <button onClick={onEditClick}>{isEdit ? "Save" : "Edit"}</button>
       <button onClick={props.handleRemove}>Delete</button>
     </div>
   );

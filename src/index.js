@@ -70,9 +70,15 @@ class TodoList extends React.Component {
 
   handleTaskEdit(e) {
     this.setState((prevState) => {
-      const id = e.target.id;
+      const id = e.target.parentNode.dataset.id;
+      const taskIndex = this.getTaskIndexByID(id);
+      const text = e.target.parentNode.querySelector('input[type="text"').value;
       const taskList = prevState.taskList;
-      taskList[id] = e.target.value;
+      taskList[taskIndex] = {
+        id,
+        text,
+        added: prevState.taskList[taskIndex].added,
+      };
       return {
         taskList: taskList,
         input: this.inputRef.current.value,
@@ -98,6 +104,10 @@ class TodoList extends React.Component {
         input: "",
       };
     });
+  }
+
+  getTaskIndexByID(id) {
+    return this.state.taskList.findIndex((value) => value.id === id);
   }
 
   render() {
