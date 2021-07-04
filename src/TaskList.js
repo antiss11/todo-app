@@ -3,22 +3,20 @@ import TaskItem from "./TaskItem";
 
 class TaskList extends React.Component {
   render() {
-    let tasksEntries = Object.entries(this.props.tasks);
-    let tasksItems = tasksEntries.map((taskData) => {
-      const id = taskData[0];
-      const text = taskData[1];
+    const tasks = this.props.tasks;
+    const taskItems = tasks.map((taskData) => {
       return (
         <TaskItem
-          key={id}
-          id={id}
+          key={taskData.id}
+          id={taskData.id}
           onChange={this.props.onChange}
-          text={text}
+          text={taskData.text}
           editHandle={this.props.editHandle}
           handleRemove={this.props.handleRemove}
         />
       );
     });
-    return <>{tasksItems}</>;
+    return <>{taskItems}</>;
   }
 }
 

@@ -19,14 +19,14 @@ const styles = {
 
 function getID(taskList) {
   const IDs = Object.keys(taskList);
-  if (IDs.length === 0 || !IDs.includes("0")) return 0;
+  if (IDs.length === 0 || !IDs.includes("0")) return "0";
   let freeID = IDs.find((v, i, a) => {
     const next = +a[i + 1];
     if (next - 1 !== +v) {
       return true;
     }
   });
-  return ++freeID;
+  return "" + ++freeID;
 }
 
 class TodoList extends React.Component {
@@ -34,7 +34,7 @@ class TodoList extends React.Component {
     super(props);
     this.inputRef = React.createRef();
     this.state = {
-      taskList: {},
+      taskList: [],
       input: "",
     };
     this.handleTaskAdding = this.handleTaskAdding.bind(this);
@@ -82,16 +82,17 @@ class TodoList extends React.Component {
 
   handleTaskAdding(e) {
     this.setState((prevState) => {
-      const lastID = getID(this.state.taskList);
+      const id = getID(this.state.taskList);
       const taskText = this.state.input;
       if (!taskText) return;
       const now = new Date();
       const taskData = {
         text: taskText,
         added: now,
+        id,
       };
-      const newTaskList = { ...prevState.taskList };
-      newTaskList[lastID] = taskData;
+      const newTaskList = prevState.taskList;
+      newTaskList.push(taskData);
       return {
         taskList: newTaskList,
         input: "",
