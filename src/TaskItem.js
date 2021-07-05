@@ -25,7 +25,7 @@ function TaskItem(props) {
 
   return (
     <div style={styles.container} data-id={props.id}>
-      <input type="checkbox" onClick={props.onTaskDone} />
+      <input type="checkbox" onClick={props.onTaskDone} disabled={isEdit} />
       <input
         type="text"
         onChange={props.onChange}
@@ -34,7 +34,9 @@ function TaskItem(props) {
         className="task-text"
         readOnly={!isEdit}
       />
-      <button onClick={onEditClick}>{isEdit ? "Save" : "Edit"}</button>
+      <button onClick={onEditClick} disabled={props.isDone}>
+        {isEdit ? "Save" : "Edit"}
+      </button>
       <button onClick={props.handleRemove}>Delete</button>
     </div>
   );

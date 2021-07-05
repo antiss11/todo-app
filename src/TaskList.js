@@ -19,7 +19,6 @@ class TaskList extends React.Component {
         />
       );
     });
-    console.log(taskItems);
     return <>{taskItems}</>;
   }
 }

@@ -105,12 +105,11 @@ class TodoList extends React.Component {
 
   handleTaskDone(e) {
     const id = e.target.parentNode.dataset.id;
-    const index = this.getTaskIndexByID(id);
     const done = e.target.checked ? true : false;
     this.setState((prevState) => {
       const taskList = prevState.taskList;
-      const taskToEdit = taskList[index];
-      taskList[index] = {
+      const taskToEdit = taskList[id];
+      taskList[id] = {
         id,
         done,
         text: taskToEdit.text,
