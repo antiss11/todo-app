@@ -4,11 +4,12 @@ import TaskItem from "./TaskItem";
 class TaskList extends React.Component {
   render() {
     const tasks = this.props.tasks;
-    const taskItems = tasks.map((taskData) => {
+    const taskItems = Object.keys(tasks).map((id) => {
+      const taskData = tasks[id];
       return (
         <TaskItem
-          key={taskData.id}
-          id={taskData.id}
+          key={id}
+          id={id}
           onChange={this.props.onChange}
           text={taskData.text}
           editHandle={this.props.editHandle}
@@ -18,6 +19,7 @@ class TaskList extends React.Component {
         />
       );
     });
+    console.log(taskItems);
     return <>{taskItems}</>;
   }
 }

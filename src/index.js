@@ -34,7 +34,7 @@ class TodoList extends React.Component {
     super(props);
     this.inputRef = React.createRef();
     this.state = {
-      taskList: [],
+      taskList: {},
       input: "",
     };
     this.handleTaskAdding = this.handleTaskAdding.bind(this);
@@ -48,7 +48,7 @@ class TodoList extends React.Component {
     this.setState((prevState) => {
       return {
         taskList: prevState.taskList,
-        input: this.inputRef.current.value,
+        input: e.target.value,
       };
     });
   }
@@ -58,11 +58,9 @@ class TodoList extends React.Component {
     this.setState((prevState) => {
       const taskList = prevState.taskList;
       delete taskList[id];
-      const nextID = getID(this.state.taskList);
       return {
         taskList: taskList,
-        input: this.inputRef.current.value,
-        lastID: nextID,
+        input: prevState.input,
       };
     });
   }
@@ -70,24 +68,23 @@ class TodoList extends React.Component {
   handleTaskEdit(e) {
     this.setState((prevState) => {
       const id = e.target.parentNode.dataset.id;
-      const taskIndex = this.getTaskIndexByID(id);
       const text = e.target.parentNode.querySelector('input[type="text"').value;
       const taskList = prevState.taskList;
-      taskList[taskIndex] = {
+      taskList[id] = {
         id,
         text,
-        added: prevState.taskList[taskIndex].added,
+        added: prevState.taskList[id].added,
       };
       return {
         taskList: taskList,
-        input: this.inputRef.current.value,
+        input: prevState.input,
       };
     });
   }
 
   handleTaskAdding(e) {
     this.setState((prevState) => {
-      const id = getID(this.state.taskList);
+      const id = getID(prevState.taskList);
       const taskText = this.state.input;
       if (!taskText) return;
       const now = new Date();
@@ -98,7 +95,7 @@ class TodoList extends React.Component {
         id,
       };
       const newTaskList = prevState.taskList;
-      newTaskList.push(taskData);
+      newTaskList[id] = taskData;
       return {
         taskList: newTaskList,
         input: "",
@@ -119,16 +116,11 @@ class TodoList extends React.Component {
         text: taskToEdit.text,
         added: taskToEdit.added,
       };
-      console.log(taskList);
       return {
         taskList: taskList,
         input: prevState.input,
       };
     });
-  }
-
-  getTaskIndexByID(id) {
-    return this.state.taskList.findIndex((value) => value.id === id);
   }
 
   render() {
