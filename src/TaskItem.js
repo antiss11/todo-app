@@ -26,7 +26,6 @@ function TaskItem(props) {
       <input type="checkbox" />
       <input
         type="text"
-        id={props.id}
         onChange={props.onChange}
         value={props.text}
         style={styles.input}

@@ -53,9 +53,7 @@ class TodoList extends React.Component {
   }
 
   handleRemove(e) {
-    const id = e.target.parentElement
-      .querySelector("input[type='text']")
-      .getAttribute("id");
+    const id = e.target.parentNode.dataset.id;
     this.setState((prevState) => {
       const taskList = prevState.taskList;
       delete taskList[id];
