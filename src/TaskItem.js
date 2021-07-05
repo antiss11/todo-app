@@ -21,14 +21,16 @@ function TaskItem(props) {
     props.onChange(e);
   }
 
+  const textStyle = props.isDone ? "line-through" : "none";
+
   return (
     <div style={styles.container} data-id={props.id}>
-      <input type="checkbox" />
+      <input type="checkbox" onClick={props.onTaskDone} />
       <input
         type="text"
         onChange={props.onChange}
         value={props.text}
-        style={styles.input}
+        style={{ textDecoration: textStyle, ...styles.input }}
         className="task-text"
         readOnly={!isEdit}
       />

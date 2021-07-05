@@ -41,6 +41,7 @@ class TodoList extends React.Component {
     this.handleTaskInput = this.handleTaskInput.bind(this);
     this.handleTaskEdit = this.handleTaskEdit.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
+    this.handleTaskDone = this.handleTaskDone.bind(this);
   }
 
   handleTaskInput(e) {
@@ -93,6 +94,7 @@ class TodoList extends React.Component {
       const taskData = {
         text: taskText,
         added: now,
+        done: false,
         id,
       };
       const newTaskList = prevState.taskList;
@@ -100,6 +102,27 @@ class TodoList extends React.Component {
       return {
         taskList: newTaskList,
         input: "",
+      };
+    });
+  }
+
+  handleTaskDone(e) {
+    const id = e.target.parentNode.dataset.id;
+    const index = this.getTaskIndexByID(id);
+    const done = e.target.checked ? true : false;
+    this.setState((prevState) => {
+      const taskList = prevState.taskList;
+      const taskToEdit = taskList[index];
+      taskList[index] = {
+        id,
+        done,
+        text: taskToEdit.text,
+        added: taskToEdit.added,
+      };
+      console.log(taskList);
+      return {
+        taskList: taskList,
+        input: prevState.input,
       };
     });
   }
@@ -122,6 +145,7 @@ class TodoList extends React.Component {
         <TaskList
           tasks={this.state.taskList}
           onChange={this.handleTaskEdit}
+          onTaskDone={this.handleTaskDone}
           handleRemove={this.handleRemove}
         />
       </div>

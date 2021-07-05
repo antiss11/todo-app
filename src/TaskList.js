@@ -13,6 +13,8 @@ class TaskList extends React.Component {
           text={taskData.text}
           editHandle={this.props.editHandle}
           handleRemove={this.props.handleRemove}
+          onTaskDone={this.props.onTaskDone}
+          isDone={taskData.done}
         />
       );
     });
