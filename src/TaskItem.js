@@ -3,16 +3,19 @@ import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Checkbox from "@material-ui/core/Checkbox";
+import SaveIcon from "@material-ui/icons/Save";
 
 const styles = {
   container: {
     display: "flex",
     alignItems: "center",
+    justifyContent: "space-around",
   },
   input: {
     border: "none",
     outline: "none",
     cursor: "default",
+    width: "100%",
   },
 };
 
@@ -25,11 +28,11 @@ function TaskItem(props) {
   }
 
   const textStyle = props.isDone ? "line-through" : "none";
+  const editButton = isEdit ? <SaveIcon /> : <EditIcon />;
 
   return (
     <div style={styles.container} data-id={props.id}>
-      {/* <input type="checkbox" onClick={props.onTaskDone} disabled={isEdit} /> */}
-      <Checkbox onChange={props.onTaskDone} />
+      <Checkbox onChange={props.onTaskDone} disabled={isEdit} />
       <input
         type="text"
         onChange={props.onChange}
@@ -43,7 +46,7 @@ function TaskItem(props) {
         disabled={props.isDone}
         data-id={props.id}
       >
-        <EditIcon>{isEdit ? "Save" : "Edit"}</EditIcon>
+        {editButton}
       </IconButton>
       <IconButton onClick={props.handleRemove}>
         <DeleteIcon>Delete</DeleteIcon>
