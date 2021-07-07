@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import AddButton from "./AddButton";
+import EditIcon from "@material-ui/icons/Edit";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const styles = {
   container: {
@@ -25,7 +28,8 @@ function TaskItem(props) {
 
   return (
     <div style={styles.container} data-id={props.id}>
-      <input type="checkbox" onClick={props.onTaskDone} disabled={isEdit} />
+      {/* <input type="checkbox" onClick={props.onTaskDone} disabled={isEdit} /> */}
+      <Checkbox onChange={props.onTaskDone} />
       <input
         type="text"
         onChange={props.onChange}
@@ -34,10 +38,16 @@ function TaskItem(props) {
         className="task-text"
         readOnly={!isEdit}
       />
-      <button onClick={onEditClick} disabled={props.isDone}>
-        {isEdit ? "Save" : "Edit"}
-      </button>
-      <button onClick={props.handleRemove}>Delete</button>
+      <IconButton
+        onClick={onEditClick}
+        disabled={props.isDone}
+        data-id={props.id}
+      >
+        <EditIcon>{isEdit ? "Save" : "Edit"}</EditIcon>
+      </IconButton>
+      <IconButton onClick={props.handleRemove}>
+        <DeleteIcon>Delete</DeleteIcon>
+      </IconButton>
     </div>
   );
 }

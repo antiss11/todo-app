@@ -54,7 +54,9 @@ class TodoList extends React.Component {
   }
 
   handleRemove(e) {
-    const id = e.target.parentNode.dataset.id;
+    const container = this.getTaskContainer(e);
+    const id = container.dataset.id;
+    console.log(id);
     this.setState((prevState) => {
       const taskList = prevState.taskList;
       delete taskList[id];
@@ -66,10 +68,10 @@ class TodoList extends React.Component {
   }
 
   handleTaskEdit(e) {
+    const container = this.getTaskContainer(e);
+    const id = container.dataset.id;
+    const text = container.querySelector('input[type="text"').value;
     this.setState((prevState) => {
-      const container = this.getTaskContainer(e);
-      const id = container.dataset.id;
-      const text = container.querySelector('input[type="text"').value;
       const taskList = prevState.taskList;
       taskList[id] = {
         id,
