@@ -67,8 +67,9 @@ class TodoList extends React.Component {
 
   handleTaskEdit(e) {
     this.setState((prevState) => {
-      const id = e.target.parentNode.dataset.id;
-      const text = e.target.parentNode.querySelector('input[type="text"').value;
+      const container = this.getTaskContainer(e);
+      const id = container.dataset.id;
+      const text = container.querySelector('input[type="text"').value;
       const taskList = prevState.taskList;
       taskList[id] = {
         id,
@@ -104,7 +105,8 @@ class TodoList extends React.Component {
   }
 
   handleTaskDone(e) {
-    const id = e.target.parentNode.dataset.id;
+    const container = this.getTaskContainer(e);
+    const id = container.dataset.id;
     const done = e.target.checked ? true : false;
     this.setState((prevState) => {
       const taskList = prevState.taskList;
@@ -120,6 +122,10 @@ class TodoList extends React.Component {
         input: prevState.input,
       };
     });
+  }
+
+  getTaskContainer(e) {
+    return e.target.closest("div[data-id]");
   }
 
   render() {
